@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekşi Sözlük Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-zinc-100">
+    <!-- Header -->
+    <header class="bg-green-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-xl font-semibold">eksisozluk</a>
+                    <input type="text" placeholder="başlık, #entry, @yazar" class="bg-green-800 px-4 py-1 rounded text-sm w-64 focus:outline-none focus:ring-2 focus:ring-green-700">
+                </div>
+                <div class="flex items-center space-x-4 text-sm">
+                    <button id="themeToggle" class="hover:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                        </svg>
+                    </button>
+                    <a href="#" class="hover:underline">#gündem</a>
+                    <a href="#" class="hover:underline">debe</a>
+                    <a href="#" class="hover:underline">sorunsallar</a>
+                    <a href="#" class="hover:underline">takip</a>
+                    <a href="signup.html" class="hover:underline">kayıt ol</a>
+                    <a href="login.html" class="hover:underline">giriş</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Sub Header -->
+    <div class="bg-green-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center space-x-6 text-sm h-10">
+                <a href="#" class="hover:text-gray-300">bugün</a>
+                <a href="#" class="hover:text-gray-300">gündem</a>
+                <a href="#" class="hover:text-gray-300">debe</a>
+                <a href="#" class="hover:text-gray-300">son</a>
+                <a href="#" class="hover:text-gray-300">kenar</a>
+                <a href="#" class="hover:text-gray-300">çaylaklar</a>
+                <a href="#" class="hover:text-gray-300">tarihte bugün</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <div class="grid grid-cols-12 gap-6">
+            <!-- Left Sidebar -->
+            <div class="col-span-2">
+                <div class="bg-white rounded p-4 shadow-sm mb-4">
+                    <h3 class="font-semibold mb-3">gündem</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-green-700">6 kasım 2025 dolar kuru <span class="text-gray-400 text-xs">(243)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">windows 12 <span class="text-gray-400 text-xs">(156)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">yapay zeka ile sohbet <span class="text-gray-400 text-xs">(134)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">2025 ekonomik krizi <span class="text-gray-400 text-xs">(98)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">türkiye'de yazılımcı maaşları <span class="text-gray-400 text-xs">(87)</span></a></li>
+                    </ul>
+                    <a href="#" class="text-sm text-green-700 hover:underline block mt-4">daha fazla göster</a>
+                </div>
+
+                <div class="bg-white rounded p-4 shadow-sm mb-4">
+                    <h3 class="font-semibold mb-3">kanallar</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-green-700">#spor</a></li>
+                        <li><a href="#" class="hover:text-green-700">#siyaset</a></li>
+                        <li><a href="#" class="hover:text-green-700">#teknoloji</a></li>
+                        <li><a href="#" class="hover:text-green-700">#edebiyat</a></li>
+                        <li><a href="#" class="hover:text-green-700">#müzik</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded p-4 shadow-sm">
+                    <h3 class="font-semibold mb-3">son</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-green-700">bilgisayar oyunları</a></li>
+                        <li><a href="#" class="hover:text-green-700">sinema</a></li>
+                        <li><a href="#" class="hover:text-green-700">televizyon</a></li>
+                        <li><a href="#" class="hover:text-green-700">havadan sudan</a></li>
+                        <li><a href="#" class="hover:text-green-700">ilişkiler</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-span-7">
+                <div class="bg-white rounded p-6 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h1 class="text-2xl font-semibold">6 kasım 2025 dolar kuru</h1>
+                        <div class="flex space-x-2">
+                            <button class="text-sm text-gray-500 hover:text-green-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                                </svg>
+                            </button>
+                            <button class="text-sm text-gray-500 hover:text-green-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Entry -->
+                        <div class="border-b pb-4">
+                            <div class="text-sm text-gray-600 mb-2 flex justify-between items-center">
+                                <div>
+                                    <a href="#" class="hover:underline">yazaradi</a>
+                                    <span class="mx-2">·</span>
+                                    <span>06.11.2025 09:15</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <button class="text-gray-400 hover:text-green-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
+                                    <button class="text-gray-400 hover:text-green-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                                        </svg>
+                                    </button>
+                                    <button class="text-gray-400 hover:text-green-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-gray-800">dolar kuru hakkında örnek entry içeriği. bu içerik örnek amaçlı oluşturulmuştur. (bkz: ekonomi) yazar burada dolar kurunun son durumu hakkında detaylı bir analiz yapmış.</p>
+                            <div class="mt-2">
+                                <a href="#" class="text-xs text-green-700 hover:underline">#ekonomi</a>
+                                <a href="#" class="text-xs text-green-700 hover:underline ml-2">#dolar</a>
+                            </div>
+                        </div>
+
+                        <!-- Entry -->
+                        <div class="border-b pb-4">
+                            <div class="text-sm text-gray-600 mb-2 flex justify-between items-center">
+                                <div>
+                                    <a href="#" class="hover:underline">başkayazar</a>
+                                    <span class="mx-2">·</span>
+                                    <span>06.11.2025 10:30</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <button class="text-gray-400 hover:text-green-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
+                                    <button class="text-gray-400 hover:text-green-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                                        </svg>
+                                    </button>
+                                    <button class="text-gray-400 hover:text-green-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-gray-800">ikinci örnek entry içeriği. bu içerik de örnek amaçlı oluşturulmuştur. (bkz: merkez bankası) yazar finansal piyasalar hakkında görüşlerini paylaşmış.</p>
+                            <div class="mt-2">
+                                <a href="#" class="text-xs text-green-700 hover:underline">#finans</a>
+                                <a href="#" class="text-xs text-green-700 hover:underline ml-2">#merkez bankası</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-between items-center mt-6 text-sm">
+                        <button class="text-gray-500 hover:text-green-700 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                            önceki
+                        </button>
+                        <span class="text-gray-500">sayfa 1/24</span>
+                        <button class="text-gray-500 hover:text-green-700 flex items-center">
+                            sonraki
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="col-span-3">
+                <div class="bg-white rounded p-4 shadow-sm mb-4">
+                    <h3 class="font-semibold mb-3">debe <span class="font-normal text-sm">(dünün en beğenilen entryleri)</span></h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-green-700">en iyi yazılım dili tartışması <span class="text-gray-400 text-xs">(345)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">yapay zekanın geleceği <span class="text-gray-400 text-xs">(289)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">2025 nobel ödülleri <span class="text-gray-400 text-xs">(234)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">mars'ta yaşam izleri <span class="text-gray-400 text-xs">(198)</span></a></li>
+                        <li><a href="#" class="hover:text-green-700">gelecek nesil telefonlar <span class="text-gray-400 text-xs">(156)</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded p-4 shadow-sm mb-4">
+                    <h3 class="font-semibold mb-3">popüler</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-green-700">günün videosu</a></li>
+                        <li><a href="#" class="hover:text-green-700">en çok favorilenen entryler</a></li>
+                        <li><a href="#" class="hover:text-green-700">bugün en çok paylaşılanlar</a></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded p-4 shadow-sm">
+                    <h3 class="font-semibold mb-3">başlık istatistikleri</h3>
+                    <div class="text-sm space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">toplam entry</span>
+                            <span class="font-medium">243</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">toplam yazar</span>
+                            <span class="font-medium">156</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">son 24 saat</span>
+                            <span class="font-medium">87</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Theme Toggle Script -->
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            // Tema tercihini localStorage'a kaydet
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Sayfa yüklendiğinde tema tercihini kontrol et
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</body>
+</html>

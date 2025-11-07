@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Ekşi Sözlük Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-zinc-100">
+    <!-- Header -->
+    <header class="bg-green-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-xl font-semibold">eksisozluk</a>
+                </div>
+                <div class="flex items-center space-x-4 text-sm">
+                    <a href="signup.html" class="hover:underline">kayıt ol</a>
+                    <a href="login.html" class="hover:underline">giriş</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="max-w-md mx-auto bg-white rounded-lg shadow-sm p-6">
+            <h1 class="text-2xl font-semibold mb-6">giriş</h1>
+            
+            <form class="space-y-4">
+                <div>
+                    <label for="nick" class="block text-sm font-medium text-gray-700 mb-1">nick</label>
+                    <input type="text" id="nick" name="nick" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">şifre</label>
+                    <input type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <div class="flex items-center">
+                    <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-green-600 rounded">
+                    <label for="remember" class="ml-2 text-sm text-gray-600">beni hatırla</label>
+                </div>
+
+                <button type="submit" class="w-full bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    giriş yap
+                </button>
+            </form>
+
+            <div class="mt-4 text-sm text-gray-600">
+                <a href="#" class="text-green-700 hover:underline">şifremi unuttum</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

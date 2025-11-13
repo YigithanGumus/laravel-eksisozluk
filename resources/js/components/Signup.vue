@@ -26,11 +26,22 @@
                     </div>
 
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">nick</label>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">ad soyad</label>
                         <input
                             type="text"
                             id="name"
                             v-model="form.name"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">kullanıcı adı</label>
+                        <input
+                            type="text"
+                            id="username"
+                            v-model="form.username"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                             required
                         >
@@ -55,6 +66,26 @@
                             v-model="form.password_confirmation"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                             required
+                        >
+                    </div>
+
+                    <div>
+                        <label for="bio" class="block text-sm font-medium text-gray-700 mb-1">biyografi (opsiyonel)</label>
+                        <textarea
+                            id="bio"
+                            v-model="form.bio"
+                            rows="3"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                        ></textarea>
+                    </div>
+
+                    <div>
+                        <label for="avatar" class="block text-sm font-medium text-gray-700 mb-1">avatar URL (opsiyonel)</label>
+                        <input
+                            type="text"
+                            id="avatar"
+                            v-model="form.avatar"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                         >
                     </div>
 
@@ -98,9 +129,12 @@ const successMessage = ref('');
 
 const form = reactive({
     name: '',
+    username: '',
     email: '',
     password: '',
     password_confirmation: '',
+    bio: '',
+    avatar: '',
     terms: false
 });
 
@@ -126,9 +160,12 @@ const handleRegister = async () => {
     try {
         const response = await axios.post('/api/auth/register', {
             name: form.name,
+            username: form.username,
             email: form.email,
             password: form.password,
-            password_confirmation: form.password_confirmation
+            password_confirmation: form.password_confirmation,
+            bio: form.bio || null,
+            avatar: form.avatar || null
         });
 
         if (response.data.message) {

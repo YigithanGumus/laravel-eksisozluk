@@ -22,8 +22,14 @@
                     <router-link to="#" class="hover:underline">debe</router-link>
                     <router-link to="#" class="hover:underline">sorunsallar</router-link>
                     <router-link to="#" class="hover:underline">takip</router-link>
-                    <router-link to="/signup" class="hover:underline">kayıt ol</router-link>
-                    <router-link to="/login" class="hover:underline">giriş</router-link>
+                    <template v-if="isAuthenticated">
+                        <span class="text-green-200">hoş geldin, <span class="font-semibold">{{ user?.name }}</span></span>
+                        <button @click="logout" class="hover:underline">çıkış</button>
+                    </template>
+                    <template v-else>
+                        <router-link to="/signup" class="hover:underline">kayıt ol</router-link>
+                        <router-link to="/login" class="hover:underline">giriş</router-link>
+                    </template>
                 </div>
             </div>
         </div>
@@ -33,8 +39,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useTheme } from '../../composables/useTheme';
+import { useAuth } from '../../composables/useAuth';
 
 const { toggleTheme } = useTheme();
+const { user, isAuthenticated, logout } = useAuth();
 const searchQuery = ref('');
 
 const handleSearch = () => {

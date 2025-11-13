@@ -65,8 +65,10 @@ import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import Header from './partials/Header.vue';
+import { useAuth } from '../composables/useAuth';
 
 const router = useRouter();
+const { login } = useAuth();
 const loading = ref(false);
 const errorMessage = ref('');
 
@@ -87,12 +89,8 @@ const handleLogin = async () => {
         });
 
         if (response.data.token) {
-            // Token'ı localStorage'a kaydet
-            localStorage.setItem('auth_token', response.data.token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-
-            // Axios default header'ına token'ı ekle
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+            // useAuth composable'ındaki login fonksiyonunu kullan
+            login(response.data.token, response.data.user);
 
             // Başarılı giriş sonrası ana sayfaya yönlendir
             router.push('/');

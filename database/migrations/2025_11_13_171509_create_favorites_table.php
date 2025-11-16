@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->unique();
             $table->integer('follower_id');
             $table->integer('followed_id');
             $table->timestamps();

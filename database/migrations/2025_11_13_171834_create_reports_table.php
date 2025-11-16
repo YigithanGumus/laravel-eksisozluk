@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->unique();
             $table->integer('reported_by');
             $table->morphs('reportable'); // entry veya title olabilir
             $table->text('reason')->nullable();

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            $table->uuid()->unique();
             $table->integer('user_id'); // kime gitti
             $table->string('type'); // örn: favorite, follow, mention
             $table->string('data')->nullable(); // JSON string

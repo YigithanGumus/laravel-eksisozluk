@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('titles', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->text('bio')->nullable();
-            $table->string('avatar')->nullable();
-            $table->boolean('is_banned')->default(false);
+            $table->uuid()->unique();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->foreignId('user_id');
+            $table->unsignedInteger('entry_count')->default(0);
+            $table->unsignedBigInteger('last_entry_id')->nullable();
+            $table->timestamp('last_activity_at')->nullable()->index();
+            $table->boolean('is_locked')->default(false);
+            $table->boolean('is_pinned')->default(false);
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-    public function users()
+    public function index()
     {
         $users = User::paginate(20);
 
@@ -18,4 +18,5 @@ class UserController extends Controller
             'status' => true
         ], Response::HTTP_OK);
     }
+
 }

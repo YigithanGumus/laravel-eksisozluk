@@ -11,7 +11,7 @@ class TitleUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class TitleUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'is_locked'=>'required|in:0,1',
+            'is_pinned'=>'required|in:0,1',
         ];
     }
 }

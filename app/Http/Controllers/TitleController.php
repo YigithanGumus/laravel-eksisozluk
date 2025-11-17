@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TitleRequest\TitleStoreRequest;
-use App\Http\Requests\TitleRequest\TitleUpdateRequest;
 use App\Models\Title;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class TitleController extends Controller
 {
@@ -43,6 +41,29 @@ class TitleController extends Controller
             DB::commit();
             return response([
                 'message' => 'Başlık ve Entry başarıyla oluşturuldu!',
+                'status' => true
+            ], Response::HTTP_CREATED);
+        } catch (Exception $th) {
+            return response([
+                'message' => 'Error!',
+                'error' => $th->getMessage(),
+                'error_line' => $th->getLine(),
+                'status' => false
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function update($uuid, Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            Title::where('uuid', $uuid)->update([
+                'is_locked' => $request->is_locked,
+                'is_pinned' => $request->is_pinned,
+            ]);
+            DB::commit();
+            return response([
+                'message' => 'Entry başarıyla güncellendi!',
                 'status' => true
             ], Response::HTTP_CREATED);
         } catch (Exception $th) {

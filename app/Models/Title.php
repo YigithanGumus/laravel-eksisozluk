@@ -39,7 +39,7 @@ class Title extends Model
         });
 
         static::creating(function ($model) {
-            $model->slug = Str::slug($model->title);
+            $model->slug = Str::slug($model->title).rand(999999,999999999);
         });
     }
 }

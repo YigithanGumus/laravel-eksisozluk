@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EntryController;
 use App\Http\Controllers\TitleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('users', UserController::class);
 
     Route::resource('titles', TitleController::class);
+
+    Route::resource('entries', EntryController::class);
 
     Route::post('auth/logout',[AuthController::class,'logout']);
 });

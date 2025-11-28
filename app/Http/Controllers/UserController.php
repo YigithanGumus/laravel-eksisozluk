@@ -33,37 +33,54 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        $user->loadCount(['followers', 'following'])
-            ->load(['titles:id,user_id,title,slug', 'entries' => function ($q) {
-                $q->withMeta()->where('is_deleted', false)->limit(20);
-            }]);
-
-        $user->is_following = Auth::user()
-            ? Auth::user()->following()->where('followed_id', $user->id)->exists()
-            : false;
+        $data = $this->buildProfilePayload($user);
 
         return response([
-            'data' => $user,
+            'data' => $data,
             'status' => true
         ], Response::HTTP_OK);
     }
 
     public function showByUsername($username)
     {
-        $user = User::where('username', $username)
-            ->withCount(['followers', 'following'])
-            ->with(['titles:id,user_id,title,slug', 'entries' => function ($q) {
-                $q->withMeta()->where('is_deleted', false)->limit(20);
-            }])
-            ->firstOrFail();
+        $user = User::where('username', $username)->firstOrFail();
+        $data = $this->buildProfilePayload($user);
+
+        return response([
+            'data' => $data,
+            'status' => true
+        ], Response::HTTP_OK);
+    }
+
+    protected function buildProfilePayload(User $user)
+    {
+        $user->loadCount(['followers', 'following', 'entries', 'titles', 'favorites']);
+        $user->load([
+            'titles' => fn($q) => $q->latest()->limit(10),
+            'entries' => function ($q) {
+                $q->withMeta()->where('is_deleted', false)->latest()->limit(10);
+            },
+            'favorites' => function ($q) {
+                $q->with(['title:id,slug,title'])->latest()->limit(10);
+            },
+        ]);
 
         $user->is_following = Auth::user()
             ? Auth::user()->following()->where('followed_id', $user->id)->exists()
             : false;
 
-        return response([
-            'data' => $user,
-            'status' => true
-        ], Response::HTTP_OK);
+        return [
+            'user' => $user,
+            'stats' => [
+                'entries_count' => $user->entries_count,
+                'titles_count' => $user->titles_count,
+                'favorites_count' => $user->favorites_count,
+                'followers_count' => $user->followers_count,
+                'following_count' => $user->following_count,
+            ],
+            'recent_entries' => $user->entries,
+            'recent_titles' => $user->titles,
+            'recent_favorites' => $user->favorites,
+        ];
     }
 }

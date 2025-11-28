@@ -8,20 +8,29 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
-class Follow extends Model
+class Message extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
 
-    protected $fillable = ['follower_id', 'followed_id'];
+    protected $fillable = [
+        'sender_id',
+        'receiver_id',
+        'content',
+        'read_at',
+    ];
 
-    public function follower()
+    protected $casts = [
+        'read_at' => 'datetime',
+    ];
+
+    public function sender()
     {
-        return $this->belongsTo(User::class, 'follower_id');
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
-    public function followed()
+    public function receiver()
     {
-        return $this->belongsTo(User::class, 'followed_id');
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 
     protected static function boot()

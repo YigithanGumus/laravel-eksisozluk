@@ -12,6 +12,8 @@ class Favorite extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
 
+    protected $fillable = ['user_id', 'entry_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

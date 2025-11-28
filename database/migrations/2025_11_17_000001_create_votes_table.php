@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
             $table->foreignId('user_id')
                 ->constrained('users')
-                ->onDelete('cascade'); // kime gitti
-            $table->string('type'); // örn: favorite, follow, mention
-            $table->json('data')->nullable(); // JSON payload
-            $table->boolean('is_read')->default(false);
+                ->onDelete('cascade');
+            $table->foreignId('entry_id')
+                ->constrained('entries')
+                ->onDelete('cascade');
+            $table->enum('value', ['up', 'down']);
             $table->timestamps();
+
+            $table->unique(['user_id', 'entry_id']);
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('votes');
     }
 };

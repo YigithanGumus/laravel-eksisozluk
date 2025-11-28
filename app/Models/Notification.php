@@ -12,6 +12,13 @@ class Notification extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
 
+    protected $fillable = [
+        'user_id',
+        'type',
+        'data',
+        'is_read',
+    ];
+
     protected $casts = [
         'data' => 'array',
     ];

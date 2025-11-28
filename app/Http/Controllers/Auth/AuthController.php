@@ -5,16 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use App\Http\Requests\AuthRequest\LoginRequest;
 use App\Http\Requests\AuthRequest\RegisterRequest;
 use Illuminate\Support\Facades\DB;
-use Exception;
-
 
 class AuthController extends Controller
 {
@@ -24,7 +19,7 @@ class AuthController extends Controller
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return response([
-                'message' => ['Kullanıcı veya şifre hatalıdır.']
+                'message' => ['Kullanıcı veya şifre hatalı.']
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -36,6 +31,8 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'username' => $user->username,
+                'is_moderator' => $user->is_moderator,
             ]
         ], Response::HTTP_OK);
     }
@@ -44,16 +41,16 @@ class AuthController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user = User::create($request->all());
+            $user = User::create($request->validated());
             DB::commit();
             return response([
-                'message' => 'Kullanıcı başarıyla oluşturuldu.',
+                'message' => 'Kullanıcı oluşturuldu.',
                 'data' => $user
             ], Response::HTTP_CREATED);
         } catch (\Exception $e) {
             DB::rollBack();
             return response([
-                'message' => 'Kullanıcı oluşturulurken bir hata oluştu.',
+                'message' => 'Kullanıcı oluşturulurken hata oluştu.',
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

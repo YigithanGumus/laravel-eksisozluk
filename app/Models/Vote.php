@@ -8,20 +8,20 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
-class Follow extends Model
+class Vote extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
 
-    protected $fillable = ['follower_id', 'followed_id'];
+    protected $fillable = ['user_id', 'entry_id', 'value'];
 
-    public function follower()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'follower_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function followed()
+    public function entry()
     {
-        return $this->belongsTo(User::class, 'followed_id');
+        return $this->belongsTo(Entry::class);
     }
 
     protected static function boot()

@@ -13,7 +13,7 @@ class Title extends Model
 {
     use HasApiTokens, Notifiable, HasFactory;
 
-    protected $fillable = ['title','slug','user_id'];
+    protected $fillable = ['title','slug','user_id','is_locked','is_pinned','lock_reason','pin_reason'];
 
     public function user()
     {
@@ -30,6 +30,12 @@ class Title extends Model
         return Entry::create($request->all());
     }
 
+    public function scopeWithMeta($query)
+    {
+        return $query->withCount('entries')
+            ->with('user:id,name,username');
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -39,7 +45,9 @@ class Title extends Model
         });
 
         static::creating(function ($model) {
-            $model->slug = Str::slug($model->title).rand(999999,999999999);
+            $slugBase = Str::slug($model->title);
+            $model->slug = $model->slug ?: $slugBase . '-' . Str::random(6);
+            $model->last_activity_at = now();
         });
     }
 }

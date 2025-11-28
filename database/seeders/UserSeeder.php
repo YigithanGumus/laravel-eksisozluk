@@ -18,16 +18,20 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
-                'password' => Hash::make('123456')
+                'username' => 'admin',
+                'password' => Hash::make('123456'),
+                'is_moderator' => true,
             ],
             [
                 'name' => 'Sanctum User 1',
                 'email' => 'sanctum@laravel.com',
+                'username' => 'sanctum1',
                 'password' => Hash::make('123456')
             ],
             [
                 'name' => 'Sanctum User 2',
                 'email' => 'sanctum2@laravel.com',
+                'username' => 'sanctum2',
                 'password' => Hash::make('123456')
             ],
         ];

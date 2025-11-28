@@ -24,6 +24,8 @@ class TitleUpdateRequest extends FormRequest
         return [
             'is_locked'=>'required|in:0,1',
             'is_pinned'=>'required|in:0,1',
+            'lock_reason' => 'nullable|string|max:2000',
+            'pin_reason' => 'nullable|string|max:2000',
         ];
     }
 }

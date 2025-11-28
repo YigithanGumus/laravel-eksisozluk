@@ -2,15 +2,16 @@
     <div class="col-span-2">
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <h3 class="font-semibold mb-3">gündem</h3>
-            <ul class="space-y-2 text-sm">
-                <li v-for="item in trendingTopics" :key="item.id">
-                    <router-link :to="`/topic/${item.slug}`" class="hover:text-green-700">
+            <div v-if="loading" class="text-xs text-gray-500">yükleniyor...</div>
+            <ul v-else class="space-y-2 text-sm">
+                <li v-for="item in trendingTopics" :key="item.slug">
+                    <router-link :to="`/title/${item.slug}`" class="hover:text-green-700">
                         {{ item.title }}
-                        <span class="text-gray-400 text-xs">({{ item.count }})</span>
+                        <span class="text-gray-400 text-xs">({{ item.entry_count }})</span>
                     </router-link>
                 </li>
             </ul>
-            <router-link to="#" class="text-sm text-green-700 hover:underline block mt-4">
+            <router-link to="/" class="text-sm text-green-700 hover:underline block mt-4">
                 daha fazla göster
             </router-link>
         </div>
@@ -19,9 +20,7 @@
             <h3 class="font-semibold mb-3">kanallar</h3>
             <ul class="space-y-2 text-sm">
                 <li v-for="channel in channels" :key="channel">
-                    <router-link :to="`/channel/${channel}`" class="hover:text-green-700">
-                        #{{ channel }}
-                    </router-link>
+                    <span class="text-gray-600">#{{ channel }}</span>
                 </li>
             </ul>
         </div>
@@ -29,8 +28,8 @@
         <div class="bg-white rounded p-4 shadow-sm">
             <h3 class="font-semibold mb-3">son</h3>
             <ul class="space-y-2 text-sm">
-                <li v-for="topic in recentTopics" :key="topic">
-                    <router-link to="#" class="hover:text-green-700">{{ topic }}</router-link>
+                <li v-for="topic in trendingTopics.slice(0,5)" :key="topic.slug">
+                    <router-link :to="`/title/${topic.slug}`" class="hover:text-green-700">{{ topic.title }}</router-link>
                 </li>
             </ul>
         </div>
@@ -38,24 +37,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import axios from 'axios';
 
-const trendingTopics = ref([
-    { id: 1, title: '6 kasım 2025 dolar kuru', slug: '6-kasim-2025-dolar-kuru', count: 243 },
-    { id: 2, title: 'windows 12', slug: 'windows-12', count: 156 },
-    { id: 3, title: 'yapay zeka ile sohbet', slug: 'yapay-zeka-ile-sohbet', count: 134 },
-    { id: 4, title: '2025 ekonomik krizi', slug: '2025-ekonomik-krizi', count: 98 },
-    { id: 5, title: "türkiye'de yazılımcı maaşları", slug: 'turkiyede-yazilimci-maaslari', count: 87 },
-]);
-
+const trendingTopics = ref([]);
 const channels = ref(['spor', 'siyaset', 'teknoloji', 'edebiyat', 'müzik']);
+const loading = ref(false);
 
-const recentTopics = ref([
-    'bilgisayar oyunları',
-    'sinema',
-    'televizyon',
-    'havadan sudan',
-    'ilişkiler'
-]);
+const fetchTrending = async () => {
+    loading.value = true;
+    try {
+        const response = await axios.get('/api/titles');
+        trendingTopics.value = response.data?.data?.data?.slice(0, 12) || [];
+    } catch (error) {
+        console.error('sidebar fetch error', error);
+    } finally {
+        loading.value = false;
+    }
+};
+
+onMounted(fetchTrending);
 </script>
-

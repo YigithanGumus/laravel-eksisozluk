@@ -18,12 +18,18 @@
                             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                         </svg>
                     </button>
-                    <router-link to="#" class="hover:underline">#gündem</router-link>
-                    <router-link to="#" class="hover:underline">debe</router-link>
-                    <router-link to="#" class="hover:underline">sorunsallar</router-link>
-                    <router-link to="#" class="hover:underline">takip</router-link>
+                    <router-link to="/" class="hover:underline">gündem</router-link>
+                    <router-link to="/feed" class="hover:underline">takip</router-link>
+                    <router-link to="/messages" class="hover:underline">mesaj</router-link>
+                    <router-link to="/notifications" class="hover:underline relative">
+                        bildirim
+                        <span v-if="unreadCount > 0" class="ml-1 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full">{{ unreadCount }}</span>
+                    </router-link>
+                    <router-link v-if="isModerator" to="/reports" class="hover:underline">raporlar</router-link>
                     <template v-if="isAuthenticated">
-                        <span class="text-green-200">hoş geldin, <span class="font-semibold">{{ user?.name }}</span></span>
+                        <router-link :to="`/user/${user?.username}`" class="text-green-200 hover:underline">
+                            {{ user?.name || user?.username }}
+                        </router-link>
                         <button @click="logout" class="hover:underline">çıkış</button>
                     </template>
                     <template v-else>
@@ -37,19 +43,39 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useTheme } from '../../composables/useTheme';
 import { useAuth } from '../../composables/useAuth';
+import { useNotifications } from '../../composables/useNotifications';
 
 const { toggleTheme } = useTheme();
 const { user, isAuthenticated, logout } = useAuth();
+const { unreadCount, startPolling, fetchUnreadCount, stopPolling } = useNotifications();
+
 const searchQuery = ref('');
+const router = useRouter();
+const isModerator = computed(() => !!user.value?.is_moderator);
 
 const handleSearch = () => {
     if (searchQuery.value.trim()) {
-        // Arama işlemi burada yapılacak
-        console.log('Arama:', searchQuery.value);
+        router.push({ path: '/', query: { q: searchQuery.value.trim() } });
     }
 };
-</script>
 
+onMounted(() => {
+    if (isAuthenticated.value) {
+        fetchUnreadCount();
+        startPolling();
+    }
+});
+
+watch(isAuthenticated, (val) => {
+    if (val) {
+        fetchUnreadCount();
+        startPolling();
+    } else {
+        stopPolling();
+    }
+});
+</script>

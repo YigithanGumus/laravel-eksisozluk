@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
-            $table->integer('follower_id');
-            $table->integer('followed_id');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+            $table->foreignId('entry_id')
+                ->constrained('entries')
+                ->onDelete('cascade');
             $table->timestamps();
 
-            $table->unique(['follower_id', 'followed_id']);
+            $table->unique(['user_id', 'entry_id']);
         });
     }
 

@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('follows', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
-            $table->integer('follower_id');
-            $table->integer('followed_id');
+            $table->foreignId('follower_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+            $table->foreignId('followed_id')
+                ->constrained('users')
+                ->onDelete('cascade');
             $table->timestamps();
             $table->unique(['follower_id', 'followed_id']);
         });

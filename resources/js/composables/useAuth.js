@@ -35,7 +35,6 @@ export function useAuth() {
                 localStorage.setItem('user', JSON.stringify(response.data.user));
             }
         } catch (error) {
-            // Token geçersizse sessizce temizle (kullanıcı zaten giriş yapmamış olabilir)
             if (error.response?.status === 401) {
                 localStorage.removeItem('auth_token');
                 localStorage.removeItem('user');
@@ -57,16 +56,14 @@ export function useAuth() {
     const logout = async () => {
         const token = localStorage.getItem('auth_token');
         
-        // Token varsa API'ye logout isteği gönder
         if (token) {
             try {
                 await axios.post('/api/auth/logout');
             } catch (error) {
-                // Hata olsa bile devam et (token zaten geçersiz olabilir)
+                // sessizce geç
             }
         }
         
-        // Her durumda localStorage'ı temizle ve yönlendir
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user');
         delete axios.defaults.headers.common['Authorization'];
@@ -83,4 +80,3 @@ export function useAuth() {
         logout
     };
 }
-

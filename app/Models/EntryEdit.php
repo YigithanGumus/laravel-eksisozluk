@@ -8,20 +8,25 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
-class Follow extends Model
+class EntryEdit extends Model
 {
     use HasFactory, HasApiTokens, Notifiable;
 
-    protected $fillable = ['follower_id', 'followed_id'];
+    protected $fillable = [
+        'entry_id',
+        'user_id',
+        'content_before',
+        'content_after',
+    ];
 
-    public function follower()
+    public function entry()
     {
-        return $this->belongsTo(User::class, 'follower_id');
+        return $this->belongsTo(Entry::class);
     }
 
-    public function followed()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'followed_id');
+        return $this->belongsTo(User::class);
     }
 
     protected static function boot()

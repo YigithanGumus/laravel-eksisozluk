@@ -1,4 +1,4 @@
-# Ekşi Sözlük Klonu (Laravel 10 + Vue 3 + Vite)
+# Ekşi Sözlük Klonu (Laravel 12 + Vue 3 + Vite)
 
 Bu proje, Ekşi Sözlük benzeri tam özellikli bir uygulamanın Laravel (API) ve Vue 3 (SPA) ile hazırlanmış klonudur. Kimlik doğrulama, başlık/entry akışı, oy/favori/takip, bildirim, mesajlaşma, raporlama ve moderasyon gibi ana işlevleri içerir.
 
